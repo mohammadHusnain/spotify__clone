@@ -1,4 +1,27 @@
+console.log("js for spotify clone");
+
+
 let currentSong = new Audio();
+
+function secondsToMinutesSeconds(seconds) {
+    if (isNaN(seconds) || seconds < 0) {
+        return "Invalid input";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+// Example usage:
+const totalSeconds = 72;
+const formattedTime = secondsToMinutesSeconds(totalSeconds);
+console.log(formattedTime); // Output: "01:12"
+
 
 
 async function getSongs() {
@@ -25,17 +48,30 @@ async function getSongs() {
 
 }
 
-const playMusic = (track) => {
+const playMusic = (track , pause = false) => {
     // const audio = new Audio("/songs/" + track);
     currentSong.src = "/songs/" + track;
-    currentSong.play();
+
+    if(!pause){
+        
+        currentSong.play();
+        play.src = "pause.svg";
+    }
+
+
+    document.querySelector(".songinfo").innerHTML = decodeURI(track) 
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
+    
 };
 
 async function main() {
 
 
     let songs = await getSongs();
-    console.log(songs);
+        // console.log(songs);
+        playMusic(songs[0] , true)
+
+
 
     // commented code only removed %20 and below code removes all %26 and %2c also so used
 
@@ -82,9 +118,36 @@ async function main() {
 
 
     // play first song
-    var audio = new Audio(songs[0]); // index of the song to be played
+    // var audio = new Audio(songs[0]); // index of the song to be played
     // audio.play();
+
+    // attach an event listener to play next and previous
+
+    play.addEventListener("click" , ()=>{
+        if(currentSong.paused){
+            currentSong.play();
+            play.src = "pause.svg";
+        }
+        else{
+            currentSong.pause()
+            play.src = "play.svg"
+
+        }
+    })
+
+    // listen for timeupdate event
+    currentSong.addEventListener("timeupdate" , ()=>{
+        console.log(currentSong.currentTime , currentSong.duration);
+        document.querySelector(".songtime").innerHTML=`${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`
+
+        document.querySelector(".circle").style.left = (currentSong.currentTime/currentSong.duration)*100 + "%";
+        
+    })
+
+
 }
+
+
 
 main();
 
