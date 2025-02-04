@@ -144,6 +144,14 @@ async function main() {
         
     })
 
+    // add an event listener to seekbar
+
+    document.querySelector(".seekbar").addEventListener("click" , seekbar=>{
+
+        document.querySelector(".circle").style.left =  (seekbar.offsetX/seekbar.target.getBoundingClientRect().width) * 100 + "%" ;
+        
+    })
+
 
 }
 
