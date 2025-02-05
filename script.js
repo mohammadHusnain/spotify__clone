@@ -2,10 +2,11 @@ console.log("js for spotify clone");
 
 
 let currentSong = new Audio();
+let songs;
 
 function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) {
-        return "Invalid input";
+        return "00:00";
     }
 
     const minutes = Math.floor(seconds / 60);
@@ -67,7 +68,7 @@ const playMusic = (track , pause = false) => {
 async function main() {
 
 
-    let songs = await getSongs();
+    songs = await getSongs();
         // console.log(songs);
         playMusic(songs[0] , true)
 
@@ -138,7 +139,7 @@ async function main() {
     // listen for timeupdate event
     currentSong.addEventListener("timeupdate" , ()=>{
         console.log(currentSong.currentTime , currentSong.duration);
-        document.querySelector(".songtime").innerHTML=`${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`
+        document.querySelector(".songtime").innerHTML=`${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`
 
         document.querySelector(".circle").style.left = (currentSong.currentTime/currentSong.duration)*100 + "%";
         
@@ -168,6 +169,35 @@ async function main() {
         document.querySelector(".left").style.left = "-120%"
     })
 
+    // add an event listener to previous
+    previous.addEventListener("click" , ()=>{
+        console.log("previous clicked");
+        console.log(currentSong);
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        if ((index-1) >= 0) {
+            playMusic(songs[index-1])
+        }
+        
+        
+    })
+
+    // add an event listener to previous
+    next.addEventListener("click", () => {
+        console.log("next clicked");
+       
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        if ((index + 1) > length) {
+            playMusic(songs[index + 1])
+        }
+
+
+
+
+    })
 
 } 
 

@@ -109,6 +109,10 @@ body {
   padding: 12px;
 }
 
+.spotifyPlaylists h1{
+  padding: 12px;
+}
+
 .cardContainer {
   margin: 30px;
   display: flex;
@@ -271,7 +275,14 @@ body {
 
 .songinfo , .songtime{
   color: black;
+  width: 265px;
+  /* border: 2px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+
 
   .abovebar {
     display: flex;
@@ -290,8 +301,12 @@ body {
 
 .hamburger{
   display: none;
-
 }
+
+.songbuttons svg:hover path {
+  fill: white;
+}
+
 
 @media (max-width : 1530px) {
   .left{
@@ -322,7 +337,8 @@ body {
     margin: 0;
   }
   .playbar{
-    width: 88vw;
+    width: 94vw;
+    height: 100px;
   }
   .seekbar{
     width: 87vw;
@@ -338,6 +354,12 @@ body {
   }
   .close{
   display: block;
+}
+.abovebar{
+flex-direction: column;
+gap: 5px;
+align-items: center;
+
 }
 
 }
