@@ -309,6 +309,13 @@ body {
      top: 25px;
       width: 29px;
   }
+  
+  .left .close{
+    position: absolute; 
+    right: 31px;
+     top: 25px;
+      width: 29px;
+  }
 
   .right{
     width: 100vw;
