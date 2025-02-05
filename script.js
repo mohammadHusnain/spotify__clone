@@ -99,7 +99,7 @@ async function main() {
 
                             <div class="playnow">
                                 <span>Play Now!</span>
-                                <img class="invert" src="play.svg" alt="Play" style="width: 30px; height: 30px;">
+                                <img  src="play.svg" alt="Play" style="width: 30px; height: 30px;">
                             </div>
  </li>`;
     }
@@ -172,7 +172,6 @@ async function main() {
     // add an event listener to previous
     previous.addEventListener("click" , ()=>{
         console.log("previous clicked");
-        console.log(currentSong);
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
 
@@ -190,13 +189,16 @@ async function main() {
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
 
-        if ((index + 1) > length) {
+        if ((index + 1) < songs.length) {
             playMusic(songs[index + 1])
         }
 
+    })
 
-
-
+    // add an event to volume
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change" , (e)=>{
+        console.log("setting volume to", e.target.value , "/100");
+        currentSong.volume = parseInt(e.target.value)/100 
     })
 
 } 
