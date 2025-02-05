@@ -11,6 +11,10 @@ body {
     color: white; */
 }
 
+.close{
+  display: none;
+}
+
 .container {
   display: flex;
   width: 100%;
@@ -64,8 +68,8 @@ body {
 }
 
 .library {
-  min-height: 36vw;
-  height: 69vh;
+  /* min-height: 36vw; */
+  height: 78vh;
   position: relative;
 }
 
@@ -110,7 +114,7 @@ body {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 80vh;
 }
 
@@ -183,7 +187,7 @@ body {
     padding: 8px;
     background-color:#dad5d5;
     border-radius: 15px;
-    height: 45px;
+    height: 65px;
     
 
 }
@@ -239,7 +243,7 @@ body {
 
   .seekbar{
     height: 3px;
-    width: 98.5%;
+    width: 98%;
     border: 2px solid black;
     background-color: black;
     border-radius: 10px;
@@ -274,6 +278,59 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 99%;
+    margin: 5px 0;
 }
 
-  
+.hamburgercontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.hamburger{
+  display: none;
+
+}
+
+@media (max-width : 1530px) {
+  .left{
+    background-color: black;
+    position: absolute;
+    left: -120%;
+    transition: all .3s;
+    z-index: 1;
+    width: 380px;
+  }
+
+  .left .close{
+    position: absolute; 
+    right: 31px;
+     top: 25px;
+      width: 29px;
+  }
+
+  .right{
+    width: 100vw;
+    margin: 0;
+  }
+  .playbar{
+    width: 88vw;
+  }
+  .seekbar{
+    width: 87vw;
+  }
+  .hamburger{
+     display: block;
+  }
+  .card{
+    width: 90vw;
+  }
+  .cardContainer{
+    margin: 0;
+  }
+  .close{
+  display: block;
+}
+
+}
