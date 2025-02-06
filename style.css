@@ -126,6 +126,18 @@ body {
   position: relative;
 }
 
+.card>*{
+padding-top: 10px ;
+}
+
+.card:hover{
+background-color: black;
+cursor: pointer;
+transition: all 2s;
+}
+
+
+
 .card img {
   width: 100%;
   object-fit: contain;
@@ -322,7 +334,9 @@ align-items: center;
 
 
 
-@media (max-width: 1530px) {
+
+
+@media (max-width: 1200px) {
   .left {
     background-color: black;
     position: absolute;
@@ -370,7 +384,7 @@ align-items: center;
     display: block;
   }
   .card {
-    width: 90vw;
+    width: 45vw;
   }
   .cardContainer {
     margin: 0;
@@ -383,6 +397,13 @@ align-items: center;
     flex-direction: column;
     gap: 5px;
     align-items: center;
+  }
+
+}
+
+@media (max-width : 400px) {
+  .card{
+    width: 84vw;
   }
 
 }
