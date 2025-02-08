@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-:root{
-  --a:0;
-}
 
 * {
   margin: 0;
@@ -130,18 +127,12 @@ body {
   position: relative;
 }
 
-.card>*{
-padding-top: 10px ;
-}
-
 .card:hover{
 background-color: rgb(105, 95, 95);
 cursor: pointer;
 transition: all 1s;
---a:1;
+
 }
-
-
 
 .card img {
   width: 100%;
@@ -150,23 +141,27 @@ transition: all 1s;
 
 .card > * {
   padding-top: 9px;
-}
+  }
 
 .play {
-  position: absolute;
-width: 28px;
-height: 28px;
+width: 30px;
+height: 30px;
 background-color: #1fdf64;
-border-radius: 90%;
-padding: 4px;
-  right: 15px;
-  margin-top: 315px;
-  top: 168px;
-  opacity: var(--a);
-  transition: all 5s ease-in-out;
-  display: flex;
+border-radius: 70%;
+padding: 1px;
+ display: flex;
   justify-content: center;
   align-items: center;
+  right: 15px;
+  position: absolute;
+  top: 196px;
+  opacity: 0;
+  transition: all 1s ease-out;
+  
+}
+
+.songbuttons>*{
+margin: 0px 10px;
 }
 
 .signupbtn {
