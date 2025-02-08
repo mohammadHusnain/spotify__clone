@@ -3,6 +3,7 @@ console.log("js for spotify clone");
 
 let currentSong = new Audio();
 let songs;
+let currFolder;
 
 function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) {
@@ -25,8 +26,9 @@ console.log(formattedTime); // Output: "01:12"
 
 
 
-async function getSongs() {
-    const a = await fetch("http://127.0.0.1:5502/songs/");
+async function getSongs(folder) {
+    currFolder = folder;
+    const a = await fetch(`http://127.0.0.1:5502/${folder}/`);
 
     let response = await a.text();
     console.log(response);
@@ -41,7 +43,7 @@ async function getSongs() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split("/songs/")[1])
+            songs.push(element.href.split(`/${folder}/`)[1])
         }
     }
 
@@ -51,7 +53,7 @@ async function getSongs() {
 
 const playMusic = (track , pause = false) => {
     // const audio = new Audio("/songs/" + track);
-    currentSong.src = "/songs/" + track;
+    currentSong.src = `/${currFolder}/` + track;
 
     if(!pause){
         
@@ -68,7 +70,7 @@ const playMusic = (track , pause = false) => {
 async function main() {
 
 
-    songs = await getSongs();
+    songs = await getSongs("songs/ncs");
         // console.log(songs);
         playMusic(songs[0] , true)
 
@@ -202,6 +204,8 @@ async function main() {
     })
 
 } 
+
+// load the playlist whenever the card is clicked
 
 
 
