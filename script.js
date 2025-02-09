@@ -28,7 +28,7 @@ console.log(formattedTime); // Output: "01:12"
 
 async function getSongs(folder) {
     currFolder = folder;
-    const a = await fetch(`http://127.0.0.1:5502/${folder}/`);
+    let a = await fetch(`http://127.0.0.1:5502/${folder}/`);
 
     let response = await a.text();
     console.log(response);
@@ -38,7 +38,7 @@ async function getSongs(folder) {
 
     let as = div.getElementsByTagName("a");
 
-    let songs = [];
+    songs = [];
 
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
@@ -47,45 +47,10 @@ async function getSongs(folder) {
         }
     }
 
-    return songs;
-
-}
-
-const playMusic = (track , pause = false) => {
-    // const audio = new Audio("/songs/" + track);
-    currentSong.src = `/${currFolder}/` + track;
-
-    if(!pause){
-        
-        currentSong.play();
-        play.src = "pause.svg";
-    }
-
-
-    document.querySelector(".songinfo").innerHTML = decodeURI(track) 
-    document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
-    
-};
-
-async function main() {
-
-
-    songs = await getSongs("songs/ncs");
-        // console.log(songs);
-        playMusic(songs[0] , true)
-
-
-
-    // commented code only removed %20 and below code removes all %26 and %2c also so used
-
-    // let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
-    // for (const song of songs) {
-    //     songUL.innerHTML = songUL.innerHTML + `<li> ${song.replaceAll("%20", " ") }</li>`
-    // }
-
     // SHOWS ALL SONGS IN PLAYLIST
 
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0];
+    songUL.innerHTML = "";
 
     for (const song of songs) {
         let formattedSong = song.replaceAll("%20", " ")
@@ -118,6 +83,73 @@ async function main() {
         });
     });
 
+    return songs;
+
+}
+
+const playMusic = (track, pause = false) => {
+    // const audio = new Audio("/songs/" + track);
+    currentSong.src = `/${currFolder}/` + track;
+
+    if (!pause) {
+
+        currentSong.play();
+        play.src = "pause.svg";
+    }
+
+
+    document.querySelector(".songinfo").innerHTML = decodeURI(track)
+    document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
+
+};
+
+async function displayAlbums() {
+    let a = await fetch(`http://127.0.0.1:5502/songs/`);
+    let response = await a.text();
+    let div = document.createElement("div");
+    div.innerHTML = response;
+    // console.log(div);
+
+    let anchors = div.getElementsByTagName("a")
+    Array.from(anchors).forEach(async e => {        
+        if (e.href.includes("/songs")){
+            let folder=e.href.split("/").slice(-1)[0];
+
+            //get the metadata of each folder
+            let a = await fetch(`http://127.0.0.1:5502/songs/${folder}/info.json`);
+            let response = await a.json();
+            console.log(response);
+            
+
+        }
+
+    })
+
+
+}
+
+async function main() {
+
+
+    await getSongs("songs/ncs");
+    // console.log(songs);
+    playMusic(songs[0], true)
+
+    // display all the albums on the page
+
+    displayAlbums()
+
+
+
+
+    // commented code only removed %20 and below code removes all %26 and %2c also so used
+
+    // let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
+    // for (const song of songs) {
+    //     songUL.innerHTML = songUL.innerHTML + `<li> ${song.replaceAll("%20", " ") }</li>`
+    // }
+
+
 
 
     // play first song
@@ -126,12 +158,12 @@ async function main() {
 
     // attach an event listener to play next and previous
 
-    play.addEventListener("click" , ()=>{
-        if(currentSong.paused){
+    play.addEventListener("click", () => {
+        if (currentSong.paused) {
             currentSong.play();
             play.src = "pause.svg";
         }
-        else{
+        else {
             currentSong.pause()
             play.src = "play.svg"
 
@@ -139,29 +171,29 @@ async function main() {
     })
 
     // listen for timeupdate event
-    currentSong.addEventListener("timeupdate" , ()=>{
-        console.log(currentSong.currentTime , currentSong.duration);
-        document.querySelector(".songtime").innerHTML=`${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`
+    currentSong.addEventListener("timeupdate", () => {
+        console.log(currentSong.currentTime, currentSong.duration);
+        document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`
 
-        document.querySelector(".circle").style.left = (currentSong.currentTime/currentSong.duration)*100 + "%";
-        
+        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+
     })
 
     // add an event listener to seekbar
 
-    document.querySelector(".seekbar").addEventListener("click" , seekbar=>{
+    document.querySelector(".seekbar").addEventListener("click", seekbar => {
 
         let percent = (seekbar.offsetX / seekbar.target.getBoundingClientRect().width) * 100
 
-        document.querySelector(".circle").style.left = percent  + "%" ;
+        document.querySelector(".circle").style.left = percent + "%";
 
         currentSong.currentTime = ((currentSong.duration) * percent) / 100;
-        
+
     })
 
     // add an event listener for hamburger
 
-    document.querySelector(".hamburger").addEventListener("click" , ()=>{
+    document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0"
     })
 
@@ -172,22 +204,22 @@ async function main() {
     })
 
     // add an event listener to previous
-    previous.addEventListener("click" , ()=>{
+    previous.addEventListener("click", () => {
         console.log("previous clicked");
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
 
-        if ((index-1) >= 0) {
-            playMusic(songs[index-1])
+        if ((index - 1) >= 0) {
+            playMusic(songs[index - 1])
         }
-        
-        
+
+
     })
 
     // add an event listener to previous
     next.addEventListener("click", () => {
         console.log("next clicked");
-       
+
 
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
 
@@ -198,18 +230,19 @@ async function main() {
     })
 
     // add an event to volume
-    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change" , (e)=>{
-        console.log("setting volume to", e.target.value , "/100");
-        currentSong.volume = parseInt(e.target.value)/100 
+    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
+        console.log("setting volume to", e.target.value, "/100");
+        currentSong.volume = parseInt(e.target.value) / 100
     })
 
-} 
+}
 
 // load the playlist whenever the card is clicked
 
-Array.from(document.getElementsByClassName(".card")).forEach(e=>{
-    e.addEventListener("click" ,async item=>{
-       songs = await getSongs (`songs/${item.dataset.folder}`)
+Array.from(document.getElementsByClassName("card")).forEach(e => {
+    e.addEventListener("click", async item => {
+        // console.log(item, item.currentTarget.dataset);
+        songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`)
     })
 })
 
