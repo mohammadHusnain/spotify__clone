@@ -194,9 +194,6 @@ async function main() {
     //     songUL.innerHTML = songUL.innerHTML + `<li> ${song.replaceAll("%20", " ") }</li>`
     // }
 
-
-
-
     // play first song
     // var audio = new Audio(songs[0]); // index of the song to be played
     // audio.play();
@@ -258,7 +255,6 @@ async function main() {
             playMusic(songs[index - 1])
         }
 
-
     })
 
     // add an event listener to previous
@@ -282,10 +278,25 @@ async function main() {
 
 }
 
+// add event listener to mute the track
 
+document.querySelector(".volume>img").addEventListener("click" , e=>{
+    console.log("changing" , e.target.src);
+    
+    if (e.target.src.includes ("volume.svg")) {
+       e.target.src =  e.target.src.replace ("volume.svg","mute.svg")
+        currentSong.volume = 0
 
+        document.querySelector(".range").getElementsByTagName("input")[0].value = 0; //makes volume slider's volume to zero when mute event is clicked
 
-
+    }
+    else
+    {
+        e.target.src = e.target.src.replace("mute.svg","volume.svg")
+       currentSong.volume = .10;
+        document.querySelector(".range").getElementsByTagName("input")[0].value = 10;
+    }
+})
 
 main();
 
