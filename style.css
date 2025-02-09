@@ -33,7 +33,7 @@ body {
 .right {
   /* margin-top: 20px ; */
   width: 73vw;
-  max-height: 80vh;
+  max-height: 90vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -114,12 +114,13 @@ body {
 }
 
 .cardContainer {
-  margin: 30px;
+  margin: 20px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: 60vh;
+
 }
 
 .card {
