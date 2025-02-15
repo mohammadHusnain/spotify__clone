@@ -38,7 +38,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /*Ensures full height*/
+  min-height: 95vh; /*Ensures full height*/
 }
 
 /* styling left border */
@@ -73,7 +73,7 @@ body {
 
 .library {
   /* min-height: 36vw; */
-  height: 71vh;
+  height: 70vh;
   position: relative;
   font-size: small;
 }
@@ -210,11 +210,11 @@ margin: 0px 10px;
   filter: invert(1);
   position: absolute;
   width: 95%;
-  bottom: 20px;
+  bottom: 10px;
   padding: 12px;
   background-color: #dad5d5;
   border-radius: 15px;
-  height: 65px;
+  height: 55px;
 }
 
 
@@ -273,8 +273,8 @@ margin: 0px 10px;
 }
 
 .seekbar {
-  height: 3px;
-  width: 97%;
+  height: 2px;
+  width: 96%;
   border: 2px solid black;
   background-color: black;
   border-radius: 10px;
@@ -312,6 +312,7 @@ align-items: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 13px;
 }
 
 .songtime{
