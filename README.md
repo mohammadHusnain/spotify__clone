@@ -1,0 +1,1 @@
+A simple Spotify Clone built using HTML, CSS, and JavaScript. This project mimics the basic functionality of Spotify, allowing users to browse and play songs. It includes features like: ✅ Fetching and displaying a song list ✅ Playing and pausing songs ✅ Interactive UI with animations
