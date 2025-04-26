@@ -1,5 +1,4 @@
-console.log("js for spotify clone");
-
+// console.log("js for spotify clone");
 
 let currentSong = new Audio();
 let songs;
